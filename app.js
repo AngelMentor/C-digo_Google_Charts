@@ -1,4 +1,5 @@
 
+//En el método termine de poner los casos de los posibles estados Jorge
 const formatData = (obj) => {
   let status_info = '';
   switch (obj.status.toString()) {
@@ -22,28 +23,15 @@ const formatData = (obj) => {
 
 
 
-//Ya veo el método llamado traverserjson es que va a realizar toda la estructura de este JSON
-//Creo que método recursivo es el que esta mal
-//Abra que dedicar le su tiempo al método para verificaar si el formato lo esta realizando de manera correcta
 const traverseJSON = (jsonObject, parentId = null, resultArray = []) => {
   if (Array.isArray(jsonObject)) {
     for (const obj of jsonObject) {
-      //Aqui estamos realizando la recursividad
       traverseJSON(obj, null, resultArray);
     }
   } else {
-    //Aquí lo que hago es hacer una destructuración del objeto recibido
     const { id, parentId, name, status, children } = jsonObject;
-    //Despues de realizar la destructuración, creo una variable en donde hago una llamada
-    //Al método formatData, para mandar mis datos destructurados, pero que los reciba en una sola variable.
-    //El método se va a encargar de dar ese formato a mi JSON
     const newNode = formatData({ id, parentId, name, status });
-    //Por ultimo, menos importante ese json formateado lo voy a meter en mi resultArray 
     resultArray.push(newNode);
-    //Una vez que termina de mandar el nuevo formato al arreglo, comprobamos
-    //Si es que children es un arreglo, recuerda que children es de las propiedades desctrcuturadas
-    //entonces por que hacemos esto, por que si recordamos children dentro de nuestro objeto es un arreglo que almacena más objetos
-    //Por eso mismo, estamos volviendo a recorrer children sus propiedades.
     if (Array.isArray(children)) {
       for (const child of children) {
         traverseJSON(child, id, resultArray);
@@ -209,7 +197,6 @@ function progressRad() {
     strokeWidth: 6,
     from: { color: "#FFEA82", a: 0 },
     to: { color: "#ED6A5A", a: 1 },
-    // Set default step function for all animate calls
     step: function (state, circle) {
       circle.path.setAttribute("stroke", state.color);
     }
